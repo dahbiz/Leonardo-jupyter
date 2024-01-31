@@ -47,6 +47,7 @@ where ``` 6666 ``` is the port (you can change it: choose any 4 numbers!).
 ```http://127.0.0.1:6666``` 
 
 a. Replace `6666` with the port number you specified in the configuration file.
+
 b. Enter the password you set in step 2 to access Jupyter Notebook.
 
 
