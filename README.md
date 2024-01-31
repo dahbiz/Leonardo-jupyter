@@ -5,7 +5,7 @@ This guide provides a straightforward approach to executing Jupyter notebooks on
 
 
 
-### Cluster Side
+### Leonardo side
 
  Prior to proceeding, confirm that Jupyter Notebook is installed in your home directory on the login node. Once verified, follow these steps:
 
