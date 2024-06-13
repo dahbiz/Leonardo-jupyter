@@ -1,54 +1,72 @@
-# Leonardo-jupyter
+# Launch Jupyter lab from HPC compute nodes
 
 This guide provides a straightforward approach to executing Jupyter notebooks on a compute node of the Leonardo supercomputer. Initially tested on Leonardo Cineca, these steps are adaptable to various clusters.
 
+### HPC cluster side (Leonardo supercomputer as an example)
 
+1. Prior to proceeding, confirm that Jupyter Notebook is installed in your home directory on the login node. Once verified, follow these steps:
 
+Generate a configuration file for jupyter:s
 
-### Leonardo side
-
- Prior to proceeding, confirm that Jupyter Notebook is installed in your home directory on the login node. Once verified, follow these steps:
-
-Generate a configuration file for jupyter:
-
-1. ```jupyter notebook --generate-config```
+- ```(ZHPC) [zdahbi00@login01 jupyter-server]$ jupyter lab --generate-config```
 
 
 Generate a hashed password that you will use to login to jupyter:
 
-2. ```jupyter notebook password```
- 
+- ```
+(ZHPC) [zdahbi00@login01 jupyter-server]$ jupyter notebook password
+Enter password: 
+Verify password: 
+[JupyterPasswordApp] Wrote hashed password to /leonardo/home/userexternal/zdahbi00/.jupyter/jupyter_server_config.json
+```
 
 
-3. Modify the configuration file t ```vim ~/.jupyter/jupyter_notebook_config.py``` and put this:
+2. Modify the configuration file ```jupyter_lab_config.py```:
 
 ```
+(ZHPC) [zdahbi00@login01 jupyter-server]$ vim ~/.jupyter/jupyter_lab_config.py
+(ZHPC) [zdahbi00@login01 jupyter-server]$ head ~/.jupyter/jupyter_lab_config.py
+# Configuration file for lab.
+
+c = get_config()  #noqa
 c.NotebookApp.open_browser = False
-c.NotebookApp.port = 6666   
+c.NotebookApp.port = 6666  
 ```
 
 where ``` 6666 ``` is the port (you can change it: choose any 4 numbers!).
 
 
-4.  Choose the resources you want to allocate by modifying the job script ``` jupy_leonardo.job``` and execute the job.
+3.  Choose the resources you want to allocate by modifying the job script ``` jupy_leonardo.job``` and execute the job.
 
-```sbatch jupy_leonardo.job```
+```
+(ZHPC) [zdahbi00@login01 jupyter-server]$ sbatch jupyter.job 
+```
 
-5. Do ```squeue -u your_username``` and get the get the name of the allocated node (something like ```lrdnxxxx```).  
+4. Do ```squeue -u your_username``` and get the get the name of the allocated node. For leonardo supercomputer, the hostnames of the compute nodes are something like ```lrdnxxxx```.  
 
-### Local terminal side
+### Local machine side (Your local terminal)
 
-6. Modify line 3 of the script ```run_jupy.sh``` by changing username with the username you use to login to the cluster.
+5. Modify line 3 of the script ```run_jupy.sh``` by changing username with the username you use to login to the cluster as well as the domain name used to access the cluster.
 
-6. For a local terminal, run the script by passing the name of the node from the command line ```./run_jupy.sh lrdnxxxx```
+```
+#!/bin/sh
 
-8. If you have followed the steps correctly. You will be able to access jupyter notebook in the compute node from the browser through:
+ssh -L 6666:$1:6666 -t username@login01-ext.leonardo.cineca.it 'jupyter lab'
+```
+
+
+6. From the local terminal, run the script by passing the hostname of the node from the command line 
+
+```
+(base) ➜  ~ ./run_jupy.sh lrdnxxxx
+```
+
+7. If you have followed the steps correctly. You will be able to access jupyter notebook in the compute node from the browser through:
 
 ```http://127.0.0.1:6666``` 
 
-a. Replace `6666` with the port number you specified in the configuration file.
+You will see a case where you should put the passwork you set before and press Enter to access Jupyter Lab kernel of the compute nodes:
 
-b. Enter the password you set in step 2 to access Jupyter Notebook.
-
+![jupy.png](imgs/jupy.png)
 
 ### Done!
