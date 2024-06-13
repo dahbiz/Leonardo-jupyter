@@ -72,4 +72,6 @@ You will see a case where you should put the password you set before and press E
 
 ![jupy.png](imgs/jupy.png)
 
-### Done!
+
+<h1 align="center">Done!!</h1>
+![jupy.png](imgs/fun.jpeg)
