@@ -1,6 +1,12 @@
 # Launch Jupyter lab from HPC compute nodes
 
-This guide provides a straightforward approach to launching a Jupyter Lab server from a compute node of an HPC cluster (I am using the Leonardo for this tutorial). This tutorial is tested on Leonardo Cineca supercomputer, SISSA Ulysses and Moroccan Marwan cluster, these steps are valid for all the other clusters.
+This guide provides a straightforward approach to launching a Jupyter Lab server from a compute node of an HPC cluster (I am using the Leonardo for this tutorial). This tutorial is tested on 
+
+- Leonardo Cineca supercomputer
+- SISSA Ulysses 
+- Moroccan Marwan cluster
+  
+the same steps are valid and should work for all the other clusters.
 
 ### HPC cluster side (Leonardo supercomputer as an example)
 
